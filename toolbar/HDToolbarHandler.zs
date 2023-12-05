@@ -1,6 +1,9 @@
 // and also handles the UI
 class HDToolbarHandler : EventHandler
 {
+	ui private int _Frames;
+	ui private HDToolbarMenu _CurrentMenu;
+
 	override void WorldTick()
 	{
 		for (int i = 0; i < MAXPLAYERS; i++)
@@ -68,7 +71,22 @@ class HDToolbarHandler : EventHandler
 			return;
 
 		let toolbar = HDToolbar(hdp.FindInventory("HDToolbar"));
-		if (!toolbar || !toolbar.Enabled || !toolbar.Menu)
+		if (!toolbar || !toolbar.Menu)
+			return;
+
+		if (_Frames > 5 || _Frames < 0 || _CurrentMenu != toolbar.Menu)
+			_Frames = 0;
+
+		// used for checking if the menu changed
+		_CurrentMenu = toolbar.Menu;
+
+		if (toolbar.Enabled && _Frames < 5)
+			++_Frames;
+
+		else if (!toolbar.Enabled && _Frames > 0)
+			--_Frames;
+
+		if (_Frames <= 0)
 			return;
 
 		Vector2 drawPos = (Screen.GetWidth() / 2, Screen.GetHeight() / 2);
@@ -82,21 +100,24 @@ class HDToolbarHandler : EventHandler
 				"white"
 			);
 			*/
+			float scale = _Frames / 5.0;
 			Screen.DrawThickLine(
-				drawPos.x - 10, drawPos.y + 8,
-				drawPos.x + 300, drawPos.y + 8,
-				25,
-				(toolbar.Selected == i)? Color(255, 255, 215, 0) : Color(255, 20, 20, 20),
+				drawPos.x - 10, drawPos.y + 8 * scale,
+				drawPos.x + 300 * scale, drawPos.y + 8 * scale,
+				25 * scale,
+				(toolbar.Enabled && toolbar.Selected == i)? Color(255, 255, 215, 0) : Color(255, 20, 20, 20),
 				190
 			);
 			Screen.DrawText(
 				NewSmallFont,
 				OptionMenuSettings.mFontColorValue,
 				drawPos.x, drawPos.y,
-				toolbar.Menu.Buttons[i]
+				toolbar.Menu.Buttons[i],
+				DTA_SCALEX, scale,
+				DTA_SCALEY, scale
 			);
 
-			drawPos.y += 30;
+			drawPos.y += 30 * scale;
 		}
 
 		// Pointer
