@@ -105,7 +105,7 @@ class HDToolbarHandler : EventHandler
 				drawPos.x - 10, drawPos.y + 8 * scale,
 				drawPos.x + 300 * scale, drawPos.y + 8 * scale,
 				25 * scale,
-				(toolbar.Enabled && toolbar.Selected == i)? Color(255, 255, 215, 0) : Color(255, 20, 20, 20),
+				(toolbar.Enabled && toolbar.Selected == i)? Statusbar.CPlayer.GetDisplayColor() : Color(255, 20, 20, 20),
 				190
 			);
 			Screen.DrawText(
