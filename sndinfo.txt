@@ -1,0 +1,5 @@
+toolbar/open0 "sounds/ui_MainMenuBeganOpening1.wav"
+toolbar/open1 "sounds/ui_SubMenuBeganOpening1.wav"
+toolbar/accept "sounds/ui_GaveCommand1.wav"
+toolbar/reject "sounds/ui_BackButton1.wav"
+toolbar/select "sounds/ui_MouseOver1.wav"
