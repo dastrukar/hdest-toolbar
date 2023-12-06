@@ -2,7 +2,7 @@ class HDToolbarMenu play abstract
 {
 	Array<string> Buttons;
 
-	virtual void Init() {}
+	virtual void Init(HDToolbar toolbar) {}
 	virtual void PressButton(HDToolbar toolbar) {}
 
 	// Helper functions

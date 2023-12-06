@@ -1,6 +1,6 @@
 class HDToolbarMenu_Main : HDToolbarMenu
 {
-	override void Init()
+	override void Init(HDToolbar toolbar)
 	{
 		Buttons.Clear();
 		Buttons.Push("<< Close Menu");

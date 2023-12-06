@@ -1,6 +1,6 @@
 class HDToolbarMenu_Gadgets : HDToolbarMenu
 {
-	override void Init()
+	override void Init(HDToolbar toolbar)
 	{
 		Buttons.Clear();
 		Buttons.Push("<< Prev. Menu");
@@ -26,14 +26,19 @@ class HDToolbarMenu_Gadgets : HDToolbarMenu
 
 class HDToolbarMenu_GadgetsIED : HDToolbarMenu
 {
-	override void Init()
+	private int _IEDID;
+
+	override void Init(HDToolbar toolbar)
 	{
+		let ied = HDIEDKit(toolbar.Owner.FindInventory("HDIEDKit"));
+		_IEDID = (ied)? ied.BotID : 1;
+
 		Buttons.Clear();
 		Buttons.Push("<< Prev. Menu");
-		Buttons.Push("* Deploy IED");
-		Buttons.Push("* Detonate IEDs");
-		Buttons.Push("* Deactivate seeking");
-		Buttons.Push("* Activate seeking");
+		Buttons.Push("* Deploy IED (id ".._IEDID..")");
+		Buttons.Push("* Detonate IEDs (id ".._IEDID..")");
+		Buttons.Push("* Deactivate seeking (id ".._IEDID..")");
+		Buttons.Push("* Activate seeking (id ".._IEDID..")");
 		Buttons.Push("* Query IEDs");
 	}
 
@@ -53,22 +58,22 @@ class HDToolbarMenu_GadgetsIED : HDToolbarMenu
 				break;
 
 			case 2:
-				EventHandler.SendNetworkEvent("ied", 999, 1);
+				EventHandler.SendNetworkEvent("ied", 999, _IEDID);
 				toolbar.ToggleToolbar();
 				break;
 
 			case 3:
-				EventHandler.SendNetworkEvent("ied", 2, 1);
+				EventHandler.SendNetworkEvent("ied", 2, _IEDID);
 				toolbar.ToggleToolbar();
 				break;
 
 			case 4:
-				EventHandler.SendNetworkEvent("ied", 1, 1);
+				EventHandler.SendNetworkEvent("ied", 1, _IEDID);
 				toolbar.ToggleToolbar();
 				break;
 
 			case 5:
-				EventHandler.SendNetworkEvent("ied", 123, 0);
+				EventHandler.SendNetworkEvent("ied", 123, _IEDID);
 				toolbar.ToggleToolbar();
 				break;
 		}

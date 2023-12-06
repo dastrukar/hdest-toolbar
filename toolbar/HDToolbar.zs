@@ -82,6 +82,6 @@ class HDToolbar : Inventory
 	void SwitchMenu(string menuName)
 	{
 		Menu = HDToolbarMenu(new(menuName));
-		Menu.Init();
+		Menu.Init(self);
 	}
 }

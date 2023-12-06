@@ -1,6 +1,6 @@
 class HDToolbarMenu_Medical : HDToolbarMenu
 {
-	override void Init()
+	override void Init(HDToolbar toolbar)
 	{
 		Buttons.Clear();
 		Buttons.Push("<< Prev. Menu");
