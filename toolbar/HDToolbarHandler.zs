@@ -4,7 +4,6 @@ const TRANSITION_FRAMES = 10;
 class HDToolbarHandler : EventHandler
 {
 	ui private int _Frames;
-	ui private HDToolbarMenu _CurrentMenu;
 
 	override void WorldTick()
 	{
@@ -99,11 +98,8 @@ class HDToolbarHandler : EventHandler
 		if (!toolbar || !toolbar.Menu)
 			return;
 
-		if (_Frames > TRANSITION_FRAMES || _Frames < 0 || _CurrentMenu != toolbar.Menu)
+		if (_Frames > TRANSITION_FRAMES || _Frames < 0)
 			_Frames = 0;
-
-		// used for checking if the menu changed
-		_CurrentMenu = toolbar.Menu;
 
 		if (toolbar.Enabled && _Frames < TRANSITION_FRAMES)
 			++_Frames;
