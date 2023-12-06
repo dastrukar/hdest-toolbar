@@ -63,7 +63,7 @@ class HDToolbarHandler : EventHandler
 				playSound = "toolbar/accept";
 
 			else if (toolbar.Menu != oldMenu)
-				playSound = (e.Name == "hd_toolbar_accept")? "toolbar/open1" : "toolbar/reject";
+				playSound = (toolbar.Selected == 0)? "toolbar/reject" : "toolbar/open1";
 
 			toolbar.Owner.A_StartSound(playSound, CHAN_BODY, CHANF_UI | CHANF_LOCAL);
 		}
