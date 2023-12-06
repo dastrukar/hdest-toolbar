@@ -90,9 +90,6 @@ class HDToolbarHandler : EventHandler
 
 		if (e.Type == InputEvent.Type_Mouse)
 		{
-			if (e.MouseX == 0 && e.MouseY == 0)
-				return false;
-
 			EventHandler.SendNetworkEvent("hd_toolbar_updatempos", e.MouseX, e.MouseY);
 			return true;
 		}
