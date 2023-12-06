@@ -28,10 +28,14 @@ class HDToolbarHandler : EventHandler
 		if (!toolbar)
 			return;
 
-		HDToolbarMenu currentMenu = toolbar.Menu;
+		HDToolbarMenu oldMenu = toolbar.Menu;
 
 		if (e.Name == "hd_toolbar")
+		{
 			toolbar.ToggleToolbar();
+			string playSound = (toolbar.Enabled)? "toolbar/open0" : "toolbar/accept";
+			toolbar.Owner.A_StartSound(playSound, CHAN_BODY, CHANF_UI | CHANF_LOCAL);
+		}
 
 		else if (toolbar.Enabled)
 		{
@@ -39,17 +43,29 @@ class HDToolbarHandler : EventHandler
 			if (e.Name == "hd_toolbar_accept" && toolbar.Enabled)
 			{
 				justPressed = true;
-				currentMenu.PressButton(toolbar);
+				toolbar.Menu.PressButton(toolbar);
 			}
 			else if (e.Name == "hd_toolbar_reject" && toolbar.Enabled)
 			{
 				justPressed = true;
 				toolbar.Selected = 0;
-				currentMenu.PressButton(toolbar);
+				toolbar.Menu.PressButton(toolbar);
 			}
 
-			if (justPressed && toolbar.Enabled)
+			if (!justPressed)
+				return;
+
+			if (toolbar.Enabled)
 				EventHandler.SendInterfaceEvent(ConsolePlayer, "hd_toolbar_setframe", 0);
+
+			string playSound;
+			if (toolbar.Menu == oldMenu)
+				playSound = "toolbar/accept";
+
+			else if (toolbar.Menu != oldMenu)
+				playSound = (e.Name == "hd_toolbar_accept")? "toolbar/open1" : "toolbar/reject";
+
+			toolbar.Owner.A_StartSound(playSound, CHAN_BODY, CHANF_UI | CHANF_LOCAL);
 		}
 	}
 

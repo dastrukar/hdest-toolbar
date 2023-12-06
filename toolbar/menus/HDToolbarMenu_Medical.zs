@@ -14,7 +14,7 @@ class HDToolbarMenu_Medical : HDToolbarMenu
 		switch (toolbar.Selected)
 		{
 			case 0:
-				toolbar.SwitchMenu("HDToolbarMenu_Main", "toolbar/reject");
+				toolbar.SwitchMenu("HDToolbarMenu_Main");
 				break;
 
 			case 1:

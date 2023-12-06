@@ -14,11 +14,11 @@ class HDToolbarMenu_Gadgets : HDToolbarMenu
 		switch (toolbar.Selected)
 		{
 			case 0:
-				toolbar.SwitchMenu("HDToolbarMenu_Main", "toolbar/reject");
+				toolbar.SwitchMenu("HDToolbarMenu_Main");
 				break;
 
 			case 3:
-				toolbar.SwitchMenu("HDToolbarMenu_GadgetsIED", "toolbar/open1");
+				toolbar.SwitchMenu("HDToolbarMenu_GadgetsIED");
 				break;
 		}
 	}
@@ -42,7 +42,7 @@ class HDToolbarMenu_GadgetsIED : HDToolbarMenu
 		switch (toolbar.Selected)
 		{
 			case 0:
-				toolbar.SwitchMenu("HDToolbarMenu_Main", "toolbar/reject");
+				toolbar.SwitchMenu("HDToolbarMenu_Gadgets");
 				break;
 
 			case 1:

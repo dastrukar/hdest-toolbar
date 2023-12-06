@@ -71,20 +71,16 @@ class HDToolbar : Inventory
 	{
 		Enabled = !Enabled;
 		if (!Enabled)
-		{
-			Owner.A_StartSound("toolbar/accept", CHAN_BODY, CHANF_UI | CHANF_LOCAL);
 			return;
-		}
 
 		PointerPos = (Screen.GetWidth() / 2, Screen.GetHeight() / 2);
 		_PlayerPitch = Owner.Player.mo.Pitch;
 		_PlayerAngle = Owner.Player.mo.Angle;
-		SwitchMenu("HDToolbarMenu_Main", "toolbar/open0"); // if you want to override this, just use SwitchMenu again after the toggle
+		SwitchMenu("HDToolbarMenu_Main"); // if you want to override this, just use SwitchMenu again after the toggle
 	}
 
-	void SwitchMenu(string menuName, string playSound)
+	void SwitchMenu(string menuName)
 	{
-		Owner.A_StartSound(playSound, CHAN_BODY, CHANF_UI | CHANF_LOCAL);
 		Menu = HDToolbarMenu(new(menuName));
 		Menu.Init();
 	}

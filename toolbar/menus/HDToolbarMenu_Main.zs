@@ -28,11 +28,11 @@ class HDToolbarMenu_Main : HDToolbarMenu
 				break;
 
 			case 3:
-				toolbar.SwitchMenu("HDToolbarMenu_Medical", "toolbar/open1");
+				toolbar.SwitchMenu("HDToolbarMenu_Medical");
 				break;
 
 			case 4:
-				toolbar.SwitchMenu("HDToolbarMenu_Gadgets", "toolbar/open1");
+				toolbar.SwitchMenu("HDToolbarMenu_Gadgets");
 				break;
 		}
 	}
