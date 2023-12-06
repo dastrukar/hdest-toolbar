@@ -5,6 +5,11 @@ class HDToolbarHandler : EventHandler
 {
 	ui private int _Frames;
 
+	override void OnRegister()
+	{
+		RequireMouse = true;
+	}
+
 	override void WorldTick()
 	{
 		for (int i = 0; i < MAXPLAYERS; i++)
@@ -36,7 +41,11 @@ class HDToolbarHandler : EventHandler
 			string playSound = (toolbar.Enabled)? "toolbar/open0" : "toolbar/accept";
 			toolbar.Owner.A_StartSound(playSound, CHAN_BODY, CHANF_UI | CHANF_LOCAL);
 		}
-
+		else if (e.Name == "hd_toolbar_updatempos")
+		{
+			toolbar.PointerPos.x += e.Args[0];
+			toolbar.PointerPos.y -= e.Args[1];
+		}
 		else if (toolbar.Enabled)
 		{
 			bool justPressed = false;
@@ -79,7 +88,15 @@ class HDToolbarHandler : EventHandler
 		if (!toolbar || !toolbar.Enabled)
 			return false;
 
-		if (e.Type == InputEvent.Type_KeyDown && e.KeyScan == InputEvent.Key_Mouse1)
+		if (e.Type == InputEvent.Type_Mouse)
+		{
+			if (e.MouseX == 0 && e.MouseY == 0)
+				return false;
+
+			EventHandler.SendNetworkEvent("hd_toolbar_updatempos", e.MouseX, e.MouseY);
+			return true;
+		}
+		else if (e.Type == InputEvent.Type_KeyDown && e.KeyScan == InputEvent.Key_Mouse1)
 		{
 			EventHandler.SendNetworkEvent("hd_toolbar_accept");
 			return true;

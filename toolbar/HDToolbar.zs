@@ -18,8 +18,6 @@ class HDToolbar : Inventory
 		if (!Owner || !Enabled || !Menu)
 			return;
 
-		GetPlayerInput();
-
 		// check which button is selected
 		float buttonSize = 30;
 		float buttonHeight = Screen.GetHeight() / 2 + buttonSize - 7;
@@ -42,29 +40,6 @@ class HDToolbar : Inventory
 
 		if (prevSel != Selected)
 			Owner.A_StartSound("toolbar/select", CHAN_BODY, CHANF_UI | CHANF_LOCAL);
-	}
-
-	// mouse input code somewhat based on Gearbox's
-	// also ripped from my Ugly as Sin wheel input code lol
-	private void GetPlayerInput()
-	{
-		Vector2 motion = (
-			Round(Owner.Player.cmd.Yaw * -0.08),
-			Round(Owner.Player.cmd.Pitch * -0.08)
-		);
-
-		Owner.Player.mo.Pitch = _PlayerPitch;
-		Owner.Player.mo.Angle = _PlayerAngle;
-		Owner.Player.cmd.Pitch = 0;
-		Owner.Player.cmd.Yaw = 0;
-
-		// apparently, NaN == NaN returns false.... why???
-		// but if motion.x is NaN, motion.x != motion.x returns true???? wtf
-		if (!(motion.x != motion.x)) { PointerPos.x += motion.x; }
-		if (!(motion.y != motion.y)) { PointerPos.y += motion.y; }
-
-		PointerPos.x = Clamp(PointerPos.x, 0, Screen.GetWidth());
-		PointerPos.y = Clamp(PointerPos.y, 0, Screen.GetHeight());
 	}
 
 	void ToggleToolbar()
