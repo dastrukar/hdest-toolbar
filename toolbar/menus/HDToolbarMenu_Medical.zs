@@ -11,6 +11,7 @@ class HDToolbarMenu_Medical : HDToolbarMenu
 
 	override void PressButton(HDToolbar toolbar)
 	{
+		let hdp = HDPlayerPawn(toolbar.Owner);
 		switch (toolbar.Selected)
 		{
 			case 0:
@@ -18,27 +19,15 @@ class HDToolbarMenu_Medical : HDToolbarMenu
 				break;
 
 			case 1:
-				let portableMedikit = toolbar.Owner.FindInventory("PortableMedikit");
-				let secondFlesh = toolbar.Owner.FindInventory("HDMedikitter");
-				if (!portableMedikit && !secondFlesh)
-					toolbar.Owner.A_Log("You don't have a medikit.", true);
-
-				else if (portableMedikit)
-					toolbar.Owner.UseInventory(portableMedikit);
-
-				else if (secondFlesh)
-					toolbar.Owner.UseInventory(secondFlesh);
+				if (!UseItem(hdp, "PortableMedikit") && !UseItem(hdp, "HDMedikitter"))
+					hdp.A_Log("You don't have a medikit.", true);
 
 				toolbar.ToggleToolbar();
 				break;
 
 			case 2:
-				let stim = toolbar.Owner.FindInventory("PortableStimpack");
-				if (!stim)
-					toolbar.Owner.A_Log("You don't have a stimpack.", true);
-
-				else
-					toolbar.Owner.UseInventory(stim);
+				if (!UseItem(hdp, "PortableStimpack"))
+					hdp.A_Log("You don't have a stimpack.", true);
 
 				toolbar.ToggleToolbar();
 				break;

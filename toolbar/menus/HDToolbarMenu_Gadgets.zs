@@ -39,6 +39,7 @@ class HDToolbarMenu_GadgetsIED : HDToolbarMenu
 
 	override void PressButton(HDToolbar toolbar)
 	{
+		let hdp = HDPlayerPawn(toolbar.Owner);
 		switch (toolbar.Selected)
 		{
 			case 0:
@@ -46,12 +47,8 @@ class HDToolbarMenu_GadgetsIED : HDToolbarMenu
 				break;
 
 			case 1:
-				let ied = toolbar.Owner.FindInventory("HDIEDKit");
-				if (!ied)
-					toolbar.Owner.A_Log("You don't have any IED kits.", true);
-
-				else
-					toolbar.Owner.UseInventory(ied);
+				if (!UseItem(hdp, "HDIEDKit"))
+					hdp.A_Log("You don't have any IED kits.", true);
 
 				break;
 
