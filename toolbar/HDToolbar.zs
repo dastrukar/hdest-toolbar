@@ -1,19 +1,16 @@
 class HDToolbar : Inventory
 {
-	private int _Timeout;
 	private float _PlayerPitch;
 	private float _PlayerAngle;
 
 	bool Enabled;
 	int Selected;
 	Vector2 PointerPos;
-	Array<string> Buttons;
 	HDToolbarMenu Menu;
 
 	override void BeginPlay()
 	{
 		PointerPos = (0, 0);
-		_Timeout = 0;
 	}
 
 	override void DoEffect()
