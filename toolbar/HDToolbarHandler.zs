@@ -29,16 +29,28 @@ class HDToolbarHandler : EventHandler
 		if (!toolbar)
 			return;
 
+		HDToolbarMenu currentMenu = toolbar.Menu;
+
 		if (e.Name == "hd_toolbar")
 			toolbar.ToggleToolbar();
 
-		else if (e.Name == "hd_toolbar_accept" && toolbar.Enabled)
-			toolbar.Menu.PressButton(toolbar);
-
-		else if (e.Name == "hd_toolbar_reject" && toolbar.Enabled)
+		else if (toolbar.Enabled)
 		{
-			toolbar.Selected = 0;
-			toolbar.Menu.PressButton(toolbar);
+			bool justPressed = false;
+			if (e.Name == "hd_toolbar_accept" && toolbar.Enabled)
+			{
+				justPressed = true;
+				currentMenu.PressButton(toolbar);
+			}
+			else if (e.Name == "hd_toolbar_reject" && toolbar.Enabled)
+			{
+				justPressed = true;
+				toolbar.Selected = 0;
+				currentMenu.PressButton(toolbar);
+			}
+
+			if (justPressed && toolbar.Enabled)
+				EventHandler.SendInterfaceEvent(ConsolePlayer, "hd_toolbar_setframe", 0);
 		}
 	}
 
@@ -64,6 +76,17 @@ class HDToolbarHandler : EventHandler
 		}
 
 		return false;
+	}
+
+	override void InterfaceProcess(ConsoleEvent e)
+	{
+		if (e.IsManual)
+			return;
+
+		if (e.Name == "hd_toolbar_setframe")
+		{
+			_Frames = e.Args[0];
+		}
 	}
 
 	override void RenderOverlay(RenderEvent e)
