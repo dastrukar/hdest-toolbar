@@ -31,6 +31,13 @@ class HDToolbarMenu_Medical : HDToolbarMenu
 
 				toolbar.ToggleToolbar();
 				break;
+
+			case 3:
+				if (!UseItem(hdp, "SelfBandage") && !UseItem(hdp, "UaS_SelfBandage"))
+					hdp.A_Log("Error: Couldn't find SelfBandage or UaS_Bandage.", true);
+
+				toolbar.ToggleToolbar();
+				break;
 		}
 	}
 }
