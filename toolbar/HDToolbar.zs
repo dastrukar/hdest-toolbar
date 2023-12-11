@@ -20,29 +20,6 @@ class HDToolbar : Inventory
 			ToggleToolbar();
 			return;
 		}
-
-		// check which button is selected
-		float buttonSize = 30;
-		float buttonHeight = Screen.GetHeight() / 2 + buttonSize - 7;
-		int prevSel = Selected;
-		for (int i = 0; i < Menu.Buttons.Size(); i++)
-		{
-			if (PointerPos.y < buttonHeight)
-			{
-				Selected = i;
-				break;
-			}
-
-			// if no other button was selected, then the last button is probably selected
-			// this is done because the mouse might've moved faster than expected
-			if (i + 1 >= Menu.Buttons.Size())
-				Selected = i;
-
-			buttonHeight += buttonSize;
-		}
-
-		if (prevSel != Selected)
-			Owner.A_StartSound("toolbar/select", CHAN_BODY, CHANF_UI | CHANF_LOCAL);
 	}
 
 	void ToggleToolbar()
