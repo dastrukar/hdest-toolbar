@@ -1,8 +1,5 @@
 class HDToolbar : Inventory
 {
-	private float _PlayerPitch;
-	private float _PlayerAngle;
-
 	bool Enabled;
 	int Selected;
 	Vector2 PointerPos;
@@ -55,8 +52,6 @@ class HDToolbar : Inventory
 			return;
 
 		PointerPos = (Screen.GetWidth() / 2, Screen.GetHeight() / 2);
-		_PlayerPitch = Owner.Player.mo.Pitch;
-		_PlayerAngle = Owner.Player.mo.Angle;
 		SwitchMenu("HDToolbarMenu_Main"); // if you want to override this, just use SwitchMenu again after the toggle
 	}
 
