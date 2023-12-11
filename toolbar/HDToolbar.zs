@@ -2,13 +2,7 @@ class HDToolbar : Inventory
 {
 	bool Enabled;
 	int Selected;
-	Vector2 PointerPos;
 	HDToolbarMenu Menu;
-
-	override void BeginPlay()
-	{
-		PointerPos = (0, 0);
-	}
 
 	override void Tick()
 	{
@@ -28,7 +22,6 @@ class HDToolbar : Inventory
 		if (!Enabled)
 			return;
 
-		PointerPos = (Screen.GetWidth() / 2, Screen.GetHeight() / 2);
 		SwitchMenu("HDToolbarMenu_Main"); // if you want to override this, just use SwitchMenu again after the toggle
 	}
 
