@@ -152,7 +152,8 @@ class HDToolbarHandler : EventHandler
 
 		// Buttons
 		Vector2 drawPos = (Screen.GetWidth() / 2, Screen.GetHeight() / 2);
-		float buttonSize = 30;
+		float buttonSize = 30 * hd_toolbar_scale;
+		float buttonDrawSize = 25 * hd_toolbar_scale;
 		float buttonHeight = Screen.GetHeight() / 2 + buttonSize - 7;
 		int tmpSelected = -1;
 		for (int i = 0; i < toolbar.Menu.Buttons.Size(); i++)
@@ -174,19 +175,20 @@ class HDToolbarHandler : EventHandler
 			// Draw buttons
 			float scale = _Frames / float(TRANSITION_FRAMES);
 			Screen.DrawThickLine(
-				drawPos.x - 10, drawPos.y + 8 * scale,
-				drawPos.x + 300 * scale, drawPos.y + 8 * scale,
-				25 * scale,
+				drawPos.x - 10 * hd_toolbar_scale, drawPos.y + 8 * hd_toolbar_scale * scale,
+				drawPos.x + 300 * hd_toolbar_scale * scale, drawPos.y + 8 * hd_toolbar_scale * scale,
+				buttonDrawSize * scale,
 				(toolbar.Enabled && tmpSelected == i)? Statusbar.CPlayer.GetDisplayColor() : Color(255, 20, 20, 20),
-				190
+				255 * hd_toolbar_bgalpha
 			);
 			Screen.DrawText(
 				NewSmallFont,
 				OptionMenuSettings.mFontColorValue,
 				drawPos.x, drawPos.y,
 				toolbar.Menu.Buttons[i],
-				DTA_SCALEX, scale,
-				DTA_SCALEY, scale
+				DTA_SCALEX, hd_toolbar_scale * scale,
+				DTA_SCALEY, hd_toolbar_scale * scale,
+				DTA_ALPHA, hd_toolbar_fgalpha
 			);
 
 			drawPos.y += buttonSize * scale;
@@ -201,34 +203,36 @@ class HDToolbarHandler : EventHandler
 		}
 
 		// Pointer
+		float pointerLength = 10 * hd_toolbar_scale;
+		float squareLength = 5 * hd_toolbar_scale;
 		Screen.DrawLine(
-			_PointerPos.x - 10, _PointerPos.y,
-			_PointerPos.x + 10, _PointerPos.y,
+			_PointerPos.x - pointerLength, _PointerPos.y,
+			_PointerPos.x + pointerLength, _PointerPos.y,
 			"white"
 		);
 		Screen.DrawLine(
-			_PointerPos.x, _PointerPos.y - 10,
-			_PointerPos.x, _PointerPos.y + 10,
+			_PointerPos.x, _PointerPos.y - pointerLength,
+			_PointerPos.x, _PointerPos.y + pointerLength,
 			"white"
 		);
 		Screen.DrawLine(
-			_PointerPos.x + 5, _PointerPos.y + 5,
-			_PointerPos.x - 5, _PointerPos.y + 5,
+			_PointerPos.x + squareLength, _PointerPos.y + squareLength,
+			_PointerPos.x - squareLength, _PointerPos.y + squareLength,
 			"white"
 		);
 		Screen.DrawLine(
-			_PointerPos.x + 5, _PointerPos.y - 5,
-			_PointerPos.x - 5, _PointerPos.y - 5,
+			_PointerPos.x + squareLength, _PointerPos.y - squareLength,
+			_PointerPos.x - squareLength, _PointerPos.y - squareLength,
 			"white"
 		);
 		Screen.DrawLine(
-			_PointerPos.x + 5, _PointerPos.y - 5,
-			_PointerPos.x + 5, _PointerPos.y + 5,
+			_PointerPos.x + squareLength, _PointerPos.y - squareLength,
+			_PointerPos.x + squareLength, _PointerPos.y + squareLength,
 			"white"
 		);
 		Screen.DrawLine(
-			_PointerPos.x - 5, _PointerPos.y - 5,
-			_PointerPos.x - 5, _PointerPos.y + 5,
+			_PointerPos.x - squareLength, _PointerPos.y - squareLength,
+			_PointerPos.x - squareLength, _PointerPos.y + squareLength,
 			"white"
 		);
 		/*

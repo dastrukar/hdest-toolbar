@@ -1,0 +1,19 @@
+AddOptionMenu "HDAddonMenu"
+{
+	Submenu "Toolbar Options", "HDToolbarMenu"
+}
+
+AddOptionMenu "OptionsMenu"
+{
+	Submenu "Toolbar Options", "HDToolbarMenu"
+}
+
+OptionMenu "HDToolbarMenu"
+{
+	Title "Toolbar Options"
+	Control "Toggle toolbar", "netevent hd_toolbar"
+	StaticText ""
+	Slider "Toolbar background alpha", "hd_toolbar_bgalpha", 0.10, 1.00, 0.05, 2
+	Slider "Toolbar foreground alpha", "hd_toolbar_fgalpha", 0.10, 1.00, 0.05, 2
+	Slider "Toolbar scale", "hd_toolbar_scale", 0.10, 2.00, 0.10, 2
+}

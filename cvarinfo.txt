@@ -1,0 +1,3 @@
+nosave float hd_toolbar_bgalpha=0.75;
+nosave float hd_toolbar_fgalpha=1.00;
+nosave float hd_toolbar_scale=1.00;
