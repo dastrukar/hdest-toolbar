@@ -13,10 +13,16 @@ class HDToolbar : Inventory
 		PointerPos = (0, 0);
 	}
 
-	override void DoEffect()
+	override void Tick()
 	{
 		if (!Owner || !Enabled || !Menu)
 			return;
+
+		if (Owner.Health <= 0)
+		{
+			ToggleToolbar();
+			return;
+		}
 
 		// check which button is selected
 		float buttonSize = 30;

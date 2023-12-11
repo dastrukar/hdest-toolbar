@@ -26,7 +26,7 @@ class HDToolbarHandler : EventHandler
 	override void NetworkProcess(ConsoleEvent e)
 	{
 		let hdp = HDPlayerPawn(Players[e.Player].mo);
-		if (!hdp)
+		if (!hdp || hdp.Health <= 0)
 			return;
 
 		let toolbar = HDToolbar(hdp.FindInventory("HDToolbar"));
