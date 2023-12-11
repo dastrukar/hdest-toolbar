@@ -1,5 +1,16 @@
 class HDToolbarMenu_Medical : HDToolbarMenu
 {
+	enum ToolbarMedical
+	{
+		TOOLBARMEDICAL_PREV,
+		TOOLBARMEDICAL_MEDIKIT,
+		TOOLBARMEDICAL_STIMPACK,
+		TOOLBARMEDICAL_BANDAGE,
+		TOOLBARMEDICAL_POTION,
+		TOOLBARMEDICAL_BERSERK,
+		TOOLBARMEDICAL_SHIELD,
+	};
+
 	override void Init(HDToolbar toolbar)
 	{
 		Buttons.Clear();
@@ -17,46 +28,46 @@ class HDToolbarMenu_Medical : HDToolbarMenu
 		let hdp = HDPlayerPawn(toolbar.Owner);
 		switch (toolbar.Selected)
 		{
-			case 0:
+			case TOOLBARMEDICAL_PREV:
 				toolbar.SwitchMenu("HDToolbarMenu_Main");
 				break;
 
-			case 1:
+			case TOOLBARMEDICAL_MEDIKIT:
 				if (!UseItem(hdp, "PortableMedikit") && !UseItem(hdp, "HDMedikitter"))
 					hdp.A_Log("You don't have any medikits.", true);
 
 				toolbar.ToggleToolbar();
 				break;
 
-			case 2:
+			case TOOLBARMEDICAL_STIMPACK:
 				if (!UseItem(hdp, "PortableStimpack"))
 					hdp.A_Log("You don't have any stimpacks.", true);
 
 				toolbar.ToggleToolbar();
 				break;
 
-			case 3:
+			case TOOLBARMEDICAL_BANDAGE:
 				if (!UseItem(hdp, "SelfBandage") && !UseItem(hdp, "UaS_SelfBandage"))
 					hdp.A_Log("Error: Couldn't find SelfBandage or UaS_Bandage.", true);
 
 				toolbar.ToggleToolbar();
 				break;
 
-			case 4:
+			case TOOLBARMEDICAL_POTION:
 				if (!UseItem(hdp, "HDHealingPotion"))
 					hdp.A_Log("You don't have any potions.", true);
 
 				toolbar.ToggleToolbar();
 				break;
 
-			case 5:
+			case TOOLBARMEDICAL_BERSERK:
 				if (!UseItem(hdp, "PortableBerserkPack"))
 					hdp.A_Log("You don't have any berserk packs.", true);
 
 				toolbar.ToggleToolbar();
 				break;
 
-			case 6:
+			case TOOLBARMEDICAL_SHIELD:
 				if (!UseItem(hdp, "ShieldCore"))
 					hdp.A_Log("You don't have any shield cores.", true);
 

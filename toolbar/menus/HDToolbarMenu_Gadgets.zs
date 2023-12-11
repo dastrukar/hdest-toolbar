@@ -1,5 +1,14 @@
 class HDToolbarMenu_Gadgets : HDToolbarMenu
 {
+	enum ToolbarGadgets
+	{
+		TOOLBARGADGETS_PREV,
+		TOOLBARGADGETS_DERP,
+		TOOLBARGADGETS_HERP,
+		TOOLBARGADGETS_IED,
+		TOOLBARGADGETS_DOOR,
+	};
+
 	override void Init(HDToolbar toolbar)
 	{
 		Buttons.Clear();
@@ -14,23 +23,23 @@ class HDToolbarMenu_Gadgets : HDToolbarMenu
 	{
 		switch (toolbar.Selected)
 		{
-			case 0:
+			case TOOLBARGADGETS_PREV:
 				toolbar.SwitchMenu("HDToolbarMenu_Main");
 				break;
 
-			case 1:
+			case TOOLBARGADGETS_DERP:
 				toolbar.SwitchMenu("HDToolbarMenu_GadgetsDERP");
 				break;
 
-			case 2:
+			case TOOLBARGADGETS_HERP:
 				toolbar.SwitchMenu("HDToolbarMenu_GadgetsHERP");
 				break;
 
-			case 3:
+			case TOOLBARGADGETS_IED:
 				toolbar.SwitchMenu("HDToolbarMenu_GadgetsIED");
 				break;
 
-			case 4:
+			case TOOLBARGADGETS_DOOR:
 				toolbar.SwitchMenu("HDToolbarMenu_GadgetsDB");
 				break;
 		}
@@ -39,6 +48,22 @@ class HDToolbarMenu_Gadgets : HDToolbarMenu
 
 class HDToolbarMenu_GadgetsDERP : HDToolbarMenu
 {
+	enum ToolbarGadgets_DERP
+	{
+		TOOLBARGADGETS_DERP_PREV,
+		TOOLBARGADGETS_DERP_EQUIPDERP,
+		TOOLBARGADGETS_DERP_EQUIPCONT,
+		TOOLBARGADGETS_DERP_HACK,
+		TOOLBARGADGETS_DERP_WAIT,
+		TOOLBARGADGETS_DERP_LINE,
+		TOOLBARGADGETS_DERP_TURRET,
+		TOOLBARGADGETS_DERP_PATROL,
+		TOOLBARGADGETS_DERP_COME,
+		TOOLBARGADGETS_DERP_GO,
+		TOOLBARGADGETS_DERP_WALL,
+		TOOLBARGADGETS_DERP_WALLACTIVATE,
+	}
+
 	override void Init(HDToolbar toolbar)
 	{
 		Buttons.Clear();
@@ -62,54 +87,54 @@ class HDToolbarMenu_GadgetsDERP : HDToolbarMenu
 		int cmd = 0;
 		switch (toolbar.Selected)
 		{
-			case 0:
+			case TOOLBARGADGETS_DERP_PREV:
 				toolbar.SwitchMenu("HDToolbarMenu_Gadgets");
 				break;
 
-			case 1:
+			case TOOLBARGADGETS_DERP_EQUIPDERP:
 				if (!UseItem(hdp, "DERPUsable"))
 					hdp.A_Log("You don't have any D.E.R.Ps.", true);
 
 				toolbar.ToggleToolbar();
 				break;
 
-			case 2:
+			case TOOLBARGADGETS_DERP_EQUIPCONT:
 				cmd = 1024;
 				break;
 
-			case 3:
+			case TOOLBARGADGETS_DERP_HACK:
 				EventHandler.SendNetworkEvent("derphack");
 				break;
 
-			case 4:
+			case TOOLBARGADGETS_DERP_WAIT:
 				cmd = DERP_IDLE;
 				break;
 
-			case 5:
+			case TOOLBARGADGETS_DERP_LINE:
 				cmd = DERP_WATCH;
 				break;
 
-			case 6:
+			case TOOLBARGADGETS_DERP_TURRET:
 				cmd = DERP_TURRET;
 				break;
 
-			case 7:
+			case TOOLBARGADGETS_DERP_PATROL:
 				cmd = DERP_PATROL;
 				break;
 
-			case 8:
+			case TOOLBARGADGETS_DERP_COME:
 				cmd = DERP_HEEL;
 				break;
 
-			case 9:
+			case TOOLBARGADGETS_DERP_GO:
 				cmd = DERP_GO;
 				break;
 
-			case 10:
+			case TOOLBARGADGETS_DERP_WALL:
 				cmd = 555;
 				break;
 
-			case 11:
+			case TOOLBARGADGETS_DERP_WALLACTIVATE:
 				cmd = 556;
 				break;
 		}
@@ -124,6 +149,17 @@ class HDToolbarMenu_GadgetsDERP : HDToolbarMenu
 
 class HDToolbarMenu_GadgetsHERP : HDToolbarMenu
 {
+	enum ToolbarGadgets_HERP
+	{
+		TOOLBARGADGETS_HERP_PREV,
+		TOOLBARGADGETS_HERP_EQUIPHERP,
+		TOOLBARGADGETS_HERP_EQUIPCONT,
+		TOOLBARGADGETS_HERP_HACK,
+		TOOLBARGADGETS_HERP_ON,
+		TOOLBARGADGETS_HERP_OFF,
+		TOOLBARGADGETS_HERP_QUERY,
+	};
+
 	override void Init(HDToolbar toolbar)
 	{
 		Buttons.Clear();
@@ -142,37 +178,37 @@ class HDToolbarMenu_GadgetsHERP : HDToolbarMenu
 		int cmd = 0;
 		switch (toolbar.Selected)
 		{
-			case 0:
+			case TOOLBARGADGETS_HERP_PREV:
 				toolbar.SwitchMenu("HDToolbarMenu_Gadgets");
 				break;
 
-			case 1:
+			case TOOLBARGADGETS_HERP_EQUIPHERP:
 				if (!UseItem(hdp, "HERPUsable"))
 					hdp.A_Log("You don't have any H.E.R.P.s.");
 
 				toolbar.ToggleToolbar();
 				break;
 
-			case 2:
+			case TOOLBARGADGETS_HERP_EQUIPCONT:
 				if (!UseItem(hdp, "HERPController"))
 					hdp.A_Log("H.E.R.P. Controller unavailable.");
 
 				toolbar.ToggleToolbar();
 				break;
 
-			case 3:
+			case TOOLBARGADGETS_HERP_HACK:
 				EventHandler.SendNetworkEvent("herphack");
 				break;
 
-			case 4:
+			case TOOLBARGADGETS_HERP_ON:
 				cmd = HERPC_ON;
 				break;
 
-			case 5:
+			case TOOLBARGADGETS_HERP_OFF:
 				cmd = HERPC_OFF;
 				break;
 
-			case 6:
+			case TOOLBARGADGETS_HERP_QUERY:
 				cmd = 123;
 				break;
 		}
@@ -187,6 +223,16 @@ class HDToolbarMenu_GadgetsHERP : HDToolbarMenu
 
 class HDToolbarMenu_GadgetsIED : HDToolbarMenu
 {
+	enum ToolbarGadgets_IED
+	{
+		TOOLBARGADGETS_IED_PREV,
+		TOOLBARGADGETS_IED_DEPLOY,
+		TOOLBARGADGETS_IED_KABOOM,
+		TOOLBARGADGETS_IED_PASSIVE,
+		TOOLBARGADGETS_IED_ACTIVE,
+		TOOLBARGADGETS_IED_QUERY,
+	};
+
 	private int _IEDID;
 
 	override void Init(HDToolbar toolbar)
@@ -209,29 +255,29 @@ class HDToolbarMenu_GadgetsIED : HDToolbarMenu
 		int cmd = 0;
 		switch (toolbar.Selected)
 		{
-			case 0:
+			case TOOLBARGADGETS_IED_PREV:
 				toolbar.SwitchMenu("HDToolbarMenu_Gadgets");
 				break;
 
-			case 1:
+			case TOOLBARGADGETS_IED_DEPLOY:
 				if (!UseItem(hdp, "HDIEDKit"))
 					hdp.A_Log("You don't have any IED kits.", true);
 
 				break;
 
-			case 2:
+			case TOOLBARGADGETS_IED_KABOOM:
 				cmd = 999;
 				break;
 
-			case 3:
+			case TOOLBARGADGETS_IED_PASSIVE:
 				cmd = 2;
 				break;
 
-			case 4:
+			case TOOLBARGADGETS_IED_ACTIVE:
 				cmd = 1;
 				break;
 
-			case 5:
+			case TOOLBARGADGETS_IED_QUERY:
 				cmd = 123;
 				break;
 		}
@@ -246,6 +292,14 @@ class HDToolbarMenu_GadgetsIED : HDToolbarMenu
 
 class HDToolbarMenu_GadgetsDB : HDToolbarMenu
 {
+	enum ToolbarGadgets_Door
+	{
+		TOOLBARGADGETS_DOOR_PREV,
+		TOOLBARGADGETS_DOOR_DEPLOY,
+		TOOLBARGADGETS_DOOR_KABOOM,
+		TOOLBARGADGETS_DOOR_QUERY,
+	};
+
 	override void Init(HDToolbar toolbar)
 	{
 		Buttons.Clear();
@@ -260,23 +314,23 @@ class HDToolbarMenu_GadgetsDB : HDToolbarMenu
 		let hdp = HDPlayerPawn(toolbar.Owner);
 		switch (toolbar.Selected)
 		{
-			case 0:
+			case TOOLBARGADGETS_DOOR_PREV:
 				toolbar.SwitchMenu("HDToolbarMenu_Gadgets");
 				break;
 
-			case 1:
+			case TOOLBARGADGETS_DOOR_DEPLOY:
 				if (!UseItem(hdp, "DoorBuster"))
 					hdp.A_Log("You don't have any Door Busters.", true);
 
 				toolbar.ToggleToolbar();
 				break;
 
-			case 2:
+			case TOOLBARGADGETS_DOOR_KABOOM:
 				EventHandler.SendNetworkEvent("doorbuster", 999);
 				toolbar.ToggleToolbar();
 				break;
 
-			case 3:
+			case TOOLBARGADGETS_DOOR_QUERY:
 				EventHandler.SendNetworkEvent("doorbuster", 123);
 				toolbar.ToggleToolbar();
 				break;
