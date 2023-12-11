@@ -202,20 +202,43 @@ class HDToolbarHandler : EventHandler
 
 		// Pointer
 		Screen.DrawLine(
-			_PointerPos.x - 20, _PointerPos.y,
-			_PointerPos.x + 20, _PointerPos.y,
+			_PointerPos.x - 10, _PointerPos.y,
+			_PointerPos.x + 10, _PointerPos.y,
 			"white"
 		);
 		Screen.DrawLine(
-			_PointerPos.x, _PointerPos.y - 20,
-			_PointerPos.x, _PointerPos.y + 20,
+			_PointerPos.x, _PointerPos.y - 10,
+			_PointerPos.x, _PointerPos.y + 10,
 			"white"
 		);
+		Screen.DrawLine(
+			_PointerPos.x + 5, _PointerPos.y + 5,
+			_PointerPos.x - 5, _PointerPos.y + 5,
+			"white"
+		);
+		Screen.DrawLine(
+			_PointerPos.x + 5, _PointerPos.y - 5,
+			_PointerPos.x - 5, _PointerPos.y - 5,
+			"white"
+		);
+		Screen.DrawLine(
+			_PointerPos.x + 5, _PointerPos.y - 5,
+			_PointerPos.x + 5, _PointerPos.y + 5,
+			"white"
+		);
+		Screen.DrawLine(
+			_PointerPos.x - 5, _PointerPos.y - 5,
+			_PointerPos.x - 5, _PointerPos.y + 5,
+			"white"
+		);
+		/*
+		// debug pos
 		Screen.DrawText(
 			NewSmallFont,
 			OptionMenuSettings.mFontColorValue,
 			_PointerPos.x + 20, _PointerPos.y + 20,
 			"x: ".._PointerPos.x.."\ny: ".._PointerPos.y
 		);
+		*/
 	}
 }
