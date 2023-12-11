@@ -198,8 +198,8 @@ class HDToolbarMenu_GadgetsIED : HDToolbarMenu
 		Buttons.Push("<< Prev. Menu");
 		Buttons.Push("* Deploy IED (id ".._IEDID..")");
 		Buttons.Push("* Detonate IEDs (id ".._IEDID..")");
-		Buttons.Push("* Deactivate seeking (id ".._IEDID..")");
-		Buttons.Push("* Activate seeking (id ".._IEDID..")");
+		Buttons.Push("* Set IEDs to Passive(id ".._IEDID..")");
+		Buttons.Push("* Set IEDs to Active(id ".._IEDID..")");
 		Buttons.Push("* Query IEDs");
 	}
 
