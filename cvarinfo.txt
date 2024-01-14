@@ -7,4 +7,6 @@ nosave bool hd_toolbar_nomouse_usemovement=true;
 nosave bool hd_toolbar_nomouse_useleftright=true;
 nosave bool hd_toolbar_nomouse_useweaponswap=false;
 nosave bool hd_toolbar_nomouse_useweaponswap_invert=false;
+
 nosave bool hd_toolbar_usefire=true;
+nosave bool hd_toolbar_resetselection=false;
