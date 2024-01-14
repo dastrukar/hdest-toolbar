@@ -75,12 +75,14 @@ class HDToolbarHandler : EventHandler
 				playSound = "toolbar/accept";
 
 			else if (toolbar.Menu != oldMenu)
+			{
 				playSound = (toolbar.Selected == 0)? "toolbar/reject" : "toolbar/open1";
 
-			if (hd_toolbar_resetselection)
-			{
-				EventHandler.SendInterfaceEvent(ConsolePlayer, "hd_toolbar_setselected", 0);
-				EventHandler.SendInterfaceEvent(e.Player, "hd_toolbar_setmpos", Screen.GetWidth() / 2, Screen.GetHeight() / 2);
+				if (hd_toolbar_resetselection)
+				{
+					EventHandler.SendInterfaceEvent(ConsolePlayer, "hd_toolbar_setselected", 0);
+					EventHandler.SendInterfaceEvent(e.Player, "hd_toolbar_setmpos", Screen.GetWidth() / 2, Screen.GetHeight() / 2);
+				}
 			}
 
 			toolbar.Owner.A_StartSound(playSound, CHAN_BODY, CHANF_UI | CHANF_LOCAL);

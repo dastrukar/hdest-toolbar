@@ -18,7 +18,7 @@ OptionMenu "HDToolbarMenu"
 	Slider "Toolbar foreground alpha", "hd_toolbar_fgalpha", 0.10, 1.00, 0.05, 2
 	Slider "Toolbar scale", "hd_toolbar_scale", 0.10, 2.00, 0.10, 2
 	StaticText ""
-	Option "Reset selection on accept/reject", "hd_toolbar_resetselection", "YesNo"
+	Option "Reset selection on menu switch", "hd_toolbar_resetselection", "YesNo"
 	Option "Use AltFire/Fire as reject/accept", "hd_toolbar_usefire", "YesNo"
 	StaticText ""
 	StaticText "= No mouse options =", "Gold"
