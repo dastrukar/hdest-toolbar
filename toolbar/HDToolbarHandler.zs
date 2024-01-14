@@ -305,7 +305,7 @@ class HDToolbarHandler : EventHandler
 		UpdateSelected(tmpSelected, toolbar, (tmpSelected != _Selected));
 
 		// Pointer
-		if (hd_toolbar_nomouse)
+		if (hd_toolbar_nomouse || !toolbar.Enabled)
 			return;
 
 		float pointerLength = 10 * hd_toolbar_scale;
