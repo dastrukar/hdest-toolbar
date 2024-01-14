@@ -42,7 +42,11 @@ class HDToolbarHandler : EventHandler
 			toolbar.ToggleToolbar();
 			string playSound = (toolbar.Enabled)? "toolbar/open0" : "toolbar/accept";
 			toolbar.Owner.A_StartSound(playSound, CHAN_BODY, CHANF_UI | CHANF_LOCAL);
-			EventHandler.SendInterfaceEvent(e.Player, "hd_toolbar_setmpos", Screen.GetWidth() / 2, Screen.GetHeight() / 2);
+			if (hd_toolbar_nomouse)
+				EventHandler.SendInterfaceEvent(e.Player, "hd_toolbar_setselected", 0);
+
+			else
+				EventHandler.SendInterfaceEvent(e.Player, "hd_toolbar_setmpos", Screen.GetWidth() / 2, Screen.GetHeight() / 2);
 		}
 		else if (toolbar.Enabled)
 		{
@@ -87,34 +91,129 @@ class HDToolbarHandler : EventHandler
 		if (!toolbar || !toolbar.Enabled)
 			return false;
 
-		if (e.Type == InputEvent.Type_Mouse)
+		if (hd_toolbar_nomouse)
+		{
+			if (e.Type != InputEvent.Type_KeyDown)
+				return false;
+
+			if (hd_toolbar_nomouse_usemovement)
+			{
+				if (CheckKey(e.KeyScan, "+forward"))
+				{
+					EventHandler.SendInterfaceEvent(ConsolePlayer, "hd_toolbar_moveselection", -1);
+					return true;
+				}
+				else if (CheckKey(e.KeyScan, "+back"))
+				{
+					EventHandler.SendInterfaceEvent(ConsolePlayer, "hd_toolbar_moveselection", 1);
+					return true;
+				}
+			}
+			else if (hd_toolbar_nomouse_useweaponswap)
+			{
+				if (e.Type == InputEvent.Type_KeyDown && CheckKey(e.KeyScan, "weapprev"))
+				{
+					if (hd_toolbar_nomouse_useweaponswap_invert)
+						EventHandler.SendInterfaceEvent(ConsolePlayer, "hd_toolbar_moveselection", 1);
+
+					else
+						EventHandler.SendInterfaceEvent(ConsolePlayer, "hd_toolbar_moveselection", -1);
+
+					return true;
+				}
+				else if (e.Type == InputEvent.Type_KeyDown && CheckKey(e.KeyScan, "weapnext"))
+				{
+					if (hd_toolbar_nomouse_useweaponswap_invert)
+						EventHandler.SendInterfaceEvent(ConsolePlayer, "hd_toolbar_moveselection", -1);
+
+					else
+						EventHandler.SendInterfaceEvent(ConsolePlayer, "hd_toolbar_moveselection", 1);
+
+					return true;
+				}
+			}
+
+			if (hd_toolbar_nomouse_useleftright)
+			{
+				if (CheckKey(e.KeyScan, "+moveleft"))
+				{
+					EventHandler.SendNetworkEvent("hd_toolbar_reject");
+					return true;
+				}
+				else if (CheckKey(e.KeyScan, "+moveright"))
+				{
+					EventHandler.SendNetworkEvent("hd_toolbar_accept", _Selected);
+					return true;
+				}
+			}
+		}
+		else if (e.Type == InputEvent.Type_Mouse)
 		{
 			EventHandler.SendInterfaceEvent(ConsolePlayer, "hd_toolbar_updatempos", e.MouseX, e.MouseY);
 			return true;
 		}
-		else if (e.Type == InputEvent.Type_KeyDown && e.KeyScan == InputEvent.Key_Mouse1)
+
+		if (hd_toolbar_usefire)
 		{
-			EventHandler.SendNetworkEvent("hd_toolbar_accept", _Selected);
-			return true;
-		}
-		else if (e.Type == InputEvent.Type_KeyDown && e.KeyScan == InputEvent.Key_Mouse2)
-		{
-			EventHandler.SendNetworkEvent("hd_toolbar_reject");
-			return true;
+			if (e.Type == InputEvent.Type_KeyDown && CheckKey(e.KeyScan, "+attack"))
+			{
+				EventHandler.SendNetworkEvent("hd_toolbar_accept", _Selected);
+				return true;
+			}
+			else if (e.Type == InputEvent.Type_KeyDown && CheckKey(e.KeyScan, "+altattack"))
+			{
+				EventHandler.SendNetworkEvent("hd_toolbar_reject");
+				return true;
+			}
 		}
 
 		return false;
 	}
 
+	ui bool CheckKey(int key, string command)
+	{
+		Array<int> keys;
+		Bindings.GetAllKeysForCommand(keys, command);
+		for (int i = 0; i < keys.Size(); i++)
+		{
+			if (keys[i] == key)
+				return true;
+		}
+
+		return false;
+	}
+
+	ui void UpdateSelected(int index, HDToolbar toolbar, bool playSound = true)
+	{
+		if (playSound)
+			StatusBar.CPlayer.mo.A_StartSound("toolbar/select", CHAN_BODY, CHANF_UI | CHANF_LOCAL);
+
+		_Selected = index;
+
+		if (_Selected < 0)
+			_Selected = toolbar.Menu.Buttons.Size() - 1;
+
+		else if (_Selected >= toolbar.Menu.Buttons.Size())
+			_Selected = 0;
+	}
+
 	override void InterfaceProcess(ConsoleEvent e)
 	{
+		if (e.Name == "hd_toolbar_moveselection")
+		{
+			let toolbar = HDToolbar(Statusbar.CPlayer.mo.FindInventory("HDToolbar"));
+			if (toolbar && toolbar.Enabled)
+				UpdateSelected(_Selected + e.Args[0], toolbar);
+
+			return;
+		}
+
 		if (e.IsManual)
 			return;
 
 		if (e.Name == "hd_toolbar_setframe")
-		{
 			_Frames = e.Args[0];
-		}
+
 		else if (e.Name == "hd_toolbar_setmpos")
 		{
 			_PointerPos.x = Clamp(e.Args[0], 0, Screen.GetWidth());
@@ -125,6 +224,8 @@ class HDToolbarHandler : EventHandler
 			_PointerPos.x = Clamp(_PointerPos.x + e.Args[0], 0, Screen.GetWidth());
 			_PointerPos.y = Clamp(_PointerPos.y - e.Args[1], 0, Screen.GetHeight());
 		}
+		else if (e.Name == "hd_toolbar_setselected")
+			_Selected = e.Args[0];
 	}
 
 	override void RenderOverlay(RenderEvent e)
@@ -155,7 +256,7 @@ class HDToolbarHandler : EventHandler
 		float buttonSize = 30 * hd_toolbar_scale;
 		float buttonDrawSize = 25 * hd_toolbar_scale;
 		float buttonHeight = Screen.GetHeight() / 2 + buttonSize - 7;
-		int tmpSelected = -1;
+		int tmpSelected = (hd_toolbar_nomouse)? _Selected : -1;
 		for (int i = 0; i < toolbar.Menu.Buttons.Size(); i++)
 		{
 			/*
@@ -196,13 +297,12 @@ class HDToolbarHandler : EventHandler
 		}
 
 		// Update selection
-		if (tmpSelected >= 0 && tmpSelected != _Selected)
-		{
-			StatusBar.CPlayer.mo.A_StartSound("toolbar/select", CHAN_BODY, CHANF_UI | CHANF_LOCAL);
-			_Selected = tmpSelected;
-		}
+		UpdateSelected(tmpSelected, toolbar, (tmpSelected != _Selected));
 
 		// Pointer
+		if (hd_toolbar_nomouse)
+			return;
+
 		float pointerLength = 10 * hd_toolbar_scale;
 		float squareLength = 5 * hd_toolbar_scale;
 		Screen.DrawLine(

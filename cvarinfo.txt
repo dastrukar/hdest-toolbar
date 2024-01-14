@@ -1,3 +1,10 @@
 nosave float hd_toolbar_bgalpha=0.75;
 nosave float hd_toolbar_fgalpha=1.00;
 nosave float hd_toolbar_scale=1.00;
+
+nosave bool hd_toolbar_nomouse=false;
+nosave bool hd_toolbar_nomouse_usemovement=true;
+nosave bool hd_toolbar_nomouse_useleftright=true;
+nosave bool hd_toolbar_nomouse_useweaponswap=false;
+nosave bool hd_toolbar_nomouse_useweaponswap_invert=false;
+nosave bool hd_toolbar_usefire=true;

@@ -12,8 +12,34 @@ OptionMenu "HDToolbarMenu"
 {
 	Title "Toolbar Options"
 	Control "Toggle toolbar", "netevent hd_toolbar"
+	Submenu "Optional keybinds", "HDToolbarMenu_Keybinds"
 	StaticText ""
 	Slider "Toolbar background alpha", "hd_toolbar_bgalpha", 0.10, 1.00, 0.05, 2
 	Slider "Toolbar foreground alpha", "hd_toolbar_fgalpha", 0.10, 1.00, 0.05, 2
 	Slider "Toolbar scale", "hd_toolbar_scale", 0.10, 2.00, 0.10, 2
+	StaticText ""
+	Option "Use AltFire/Fire as reject/accept", "hd_toolbar_usefire", "YesNo"
+	StaticText ""
+	StaticText "= No mouse options =", "Gold"
+	Option "Disable mouse input", "hd_toolbar_nomouse", "YesNo"
+	Option "Use movement input", "hd_toolbar_nomouse_usemovement", "YesNo", "hd_toolbar_nomouse"
+	Option "Use movement left/right as reject/accept", "hd_toolbar_nomouse_useleftright", "YesNo", "hd_toolbar_nomouse"
+	Option "Use weapon prev/next as up/down", "hd_toolbar_nomouse_useweaponswap", "YesNo", "hd_toolbar_nomouse"
+	Option "Invert weapon prev/next to down/up", "hd_toolbar_nomouse_useweaponswap_invert", "YesNo", "hd_toolbar_nomouse"
+}
+
+OptionMenu "HDToolbarMenu_Keybinds"
+{
+	Title "Toolbar Optional Keybinds"
+	Control "Move selection up", "interfaceevent hd_toolbar_moveselection -1"
+	Control "Move selection down", "interfaceevent hd_toolbar_moveselection 1"
+	Control "Accept selection", "netevent hd_toolbar_accept"
+	Control "Reject selection (back)", "netevent hd_toolbar_reject"
+
+	StaticText ""
+	StaticText "List of events to bind (if you prefer to manually do it)"
+	StaticText "interfaceevent hd_toolbar_moveselection -1", "White"
+	StaticText "interfaceevent hd_toolbar_moveselection 1", "White"
+	StaticText "netevent hd_toolbar_accept", "White"
+	StaticText "netevent hd_toolbar_reject", "White"
 }
