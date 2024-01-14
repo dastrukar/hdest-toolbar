@@ -212,6 +212,11 @@ class HDToolbarHandler : EventHandler
 
 			return;
 		}
+		else if (e.Name == "hd_toolbar_accept") // a wrapper for users to use
+		{
+			EventHandler.SendNetworkEvent("hd_toolbar_accept", _Selected);
+			return;
+		}
 
 		if (e.IsManual)
 			return;
