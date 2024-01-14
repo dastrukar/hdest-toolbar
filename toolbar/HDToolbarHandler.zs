@@ -42,11 +42,8 @@ class HDToolbarHandler : EventHandler
 			toolbar.ToggleToolbar();
 			string playSound = (toolbar.Enabled)? "toolbar/open0" : "toolbar/accept";
 			toolbar.Owner.A_StartSound(playSound, CHAN_BODY, CHANF_UI | CHANF_LOCAL);
-			if (hd_toolbar_nomouse)
-				EventHandler.SendInterfaceEvent(e.Player, "hd_toolbar_setselected", 0);
-
-			else
-				EventHandler.SendInterfaceEvent(e.Player, "hd_toolbar_setmpos", Screen.GetWidth() / 2, Screen.GetHeight() / 2);
+			EventHandler.SendInterfaceEvent(e.Player, "hd_toolbar_setselected", 0);
+			EventHandler.SendInterfaceEvent(e.Player, "hd_toolbar_setmpos", Screen.GetWidth() / 2, Screen.GetHeight() / 2);
 		}
 		else if (toolbar.Enabled)
 		{
