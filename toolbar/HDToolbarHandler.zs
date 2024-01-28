@@ -65,7 +65,7 @@ class HDToolbarHandler : EventHandler
 				return;
 
 			if (toolbar.Enabled)
-				EventHandler.SendInterfaceEvent(ConsolePlayer, "hd_toolbar_setframe", 0);
+				EventHandler.SendInterfaceEvent(e.Player, "hd_toolbar_setframe", 0);
 
 			string playSound;
 			if (toolbar.Menu == oldMenu)
@@ -77,7 +77,7 @@ class HDToolbarHandler : EventHandler
 
 				if (hd_toolbar_resetselection)
 				{
-					EventHandler.SendInterfaceEvent(ConsolePlayer, "hd_toolbar_setselected", 0);
+					EventHandler.SendInterfaceEvent(e.Player, "hd_toolbar_setselected", 0);
 					EventHandler.SendInterfaceEvent(e.Player, "hd_toolbar_setmpos", Screen.GetWidth() / 2, Screen.GetHeight() / 2);
 				}
 			}
