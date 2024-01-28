@@ -23,6 +23,7 @@ class HDToolbarMenu_Main : HDToolbarMenu
 
 	override void PressButton(HDToolbar toolbar)
 	{
+		let hdp = HDPlayerPawn(toolbar.Owner);
 		switch (toolbar.Selected)
 		{
 			case TOOLBARMAIN_CLOSE:
@@ -30,16 +31,16 @@ class HDToolbarMenu_Main : HDToolbarMenu
 				break;
 
 			case TOOLBARMAIN_STRIP:
-				EventHandler.SendNetworkEvent("hd_strip");
+				SendNetworkEvent(hdp, "hd_strip");
 				break;
 
 			case TOOLBARMAIN_PURGE:
-				EventHandler.SendNetworkEvent("hd_purge");
+				SendNetworkEvent(hdp, "hd_purge");
 				toolbar.ToggleToolbar();
 				break;
 
 			case TOOLBARMAIN_MAG:
-				if (toolbar.Owner.Player.WeaponState & WF_USER3OK)
+				if (hdp.Player.WeaponState & WF_USER3OK)
 				{
 					let psp = toolbar.Owner.Player.GetPSprite(PSP_WEAPON);
 					let magState = toolbar.Owner.Player.ReadyWeapon.FindState("user3");
@@ -47,7 +48,7 @@ class HDToolbarMenu_Main : HDToolbarMenu
 						psp.SetState(magState);
 				}
 				else
-					toolbar.Owner.A_Log("Unable to switch to Mag. Manager. (weapon not ready)", true);
+					hdp.A_Log("Unable to switch to Mag. Manager. (weapon not ready)", true);
 
 				toolbar.ToggleToolbar();
 				break;

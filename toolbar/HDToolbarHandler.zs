@@ -236,6 +236,16 @@ class HDToolbarHandler : EventHandler
 		}
 		else if (e.Name == "hd_toolbar_setselected")
 			_Selected = e.Args[0];
+
+		else
+		{
+			Array<string> tokens;
+			e.Name.Split(tokens, ":");
+			if (tokens.Size() != 2 || tokens[0] != "hd_toolbar_cmd")
+				return;
+
+			EventHandler.SendNetworkEvent(tokens[1], e.Args[0], e.Args[1], e.Args[2]);
+		}
 	}
 
 	override void RenderOverlay(RenderEvent e)

@@ -17,4 +17,10 @@ class HDToolbarMenu play abstract
 		hdp.UseInventory(item);
 		return true;
 	}
+
+	protected void SendNetworkEvent(HDPlayerPawn hdp, string eventName, int arg1 = 0, int arg2 = 0, int arg3 = 0)
+	{
+		eventName = "hd_toolbar_cmd:"..eventName;
+		EventHandler.SendInterfaceEvent(hdp.PlayerNumber(), eventName, arg1, arg2, arg3);
+	}
 }

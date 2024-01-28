@@ -103,7 +103,7 @@ class HDToolbarMenu_GadgetsDERP : HDToolbarMenu
 				break;
 
 			case TOOLBARGADGETS_DERP_HACK:
-				EventHandler.SendNetworkEvent("derphack");
+				SendNetworkEvent(hdp, "derphack");
 				break;
 
 			case TOOLBARGADGETS_DERP_WAIT:
@@ -142,7 +142,7 @@ class HDToolbarMenu_GadgetsDERP : HDToolbarMenu
 		if (cmd == 0)
 			return;
 
-		EventHandler.SendNetworkEvent("derp", cmd);
+		SendNetworkEvent(hdp, "derp", cmd);
 		toolbar.ToggleToolbar();
 	}
 }
@@ -197,7 +197,7 @@ class HDToolbarMenu_GadgetsHERP : HDToolbarMenu
 				break;
 
 			case TOOLBARGADGETS_HERP_HACK:
-				EventHandler.SendNetworkEvent("herphack");
+				SendNetworkEvent(hdp, "herphack");
 				break;
 
 			case TOOLBARGADGETS_HERP_ON:
@@ -217,7 +217,7 @@ class HDToolbarMenu_GadgetsHERP : HDToolbarMenu
 			return;
 
 		toolbar.ToggleToolbar();
-		EventHandler.SendNetworkEvent("herp", cmd);
+		SendNetworkEvent(hdp, "herp", cmd);
 	}
 }
 
@@ -285,7 +285,7 @@ class HDToolbarMenu_GadgetsIED : HDToolbarMenu
 		if (cmd == 0)
 			return;
 
-		EventHandler.SendNetworkEvent("ied", cmd, _IEDID);
+		SendNetworkEvent(hdp, "ied", cmd, _IEDID);
 		toolbar.ToggleToolbar();
 	}
 }
@@ -326,12 +326,12 @@ class HDToolbarMenu_GadgetsDB : HDToolbarMenu
 				break;
 
 			case TOOLBARGADGETS_DOOR_KABOOM:
-				EventHandler.SendNetworkEvent("doorbuster", 999);
+				SendNetworkEvent(hdp, "doorbuster", 999);
 				toolbar.ToggleToolbar();
 				break;
 
 			case TOOLBARGADGETS_DOOR_QUERY:
-				EventHandler.SendNetworkEvent("doorbuster", 123);
+				SendNetworkEvent(hdp, "doorbuster", 123);
 				toolbar.ToggleToolbar();
 				break;
 		}
